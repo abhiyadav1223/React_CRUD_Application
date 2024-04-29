@@ -6,17 +6,23 @@ const slice = createSlice({
         value:
             [
                 {
-                    id: 1,
-                    name: "Aaron",
-                    mobile: "5785664565",
-                    email: "aaron@gmail.com",
-                    address: "indore"
+                    id: 1001,
+                    name: "Abhi Yadav",
+                    mobile: "62646136099",
+                    email: "abhi123@gmail.com",
+                    address: "Indore"
                 },
                 {
-                    id: 2,
-                    name: "Buincy Hanson",
-                    mobile: "98765412356",
-                    email: "hanson@gmail.com",
+                    id: 1002,
+                    name: "Jayesh Gaur",
+                    mobile: "9039520098",
+                    email: "gaurjayesh3897@gmail.com",
+                    address: "Pune"
+                }, {
+                    id: 1003,
+                    name: "Parth Kapse",
+                    mobile: "897862341",
+                    email: "parth33@gmail.com",
                     address: "Bhopal"
                 }
             ],
@@ -37,16 +43,34 @@ const slice = createSlice({
         },
         updateUser: (state, action) => {
             var userdata = action.payload
-            var nm = state.value[userdata.id - 1]
+            var nm = state.value[state.value.findIndex(val => val.id === userdata.id)];
             nm.id = userdata.id
             nm.name = userdata.name
             nm.mobile = userdata.mobile
             nm.email = userdata.email
             nm.address = userdata.address
         },
-        finddata : (state, action) => {
+        finddata: (state, action) => {
+            var ary = state.value;
             var data = action.payload
-            state.value = state.value.filter(eb => eb.name.toLowerCase().indexOf(data.toLocaleLowerCase())> -1 || eb.mobile.indexOf(data)>-1)
+            if (data != 0) {
+                state.value = state.value.filter(eb => {
+                    if (eb.name.toLowerCase().includes(data.toLowerCase())) {
+                        return eb;
+                    }
+                    else if (eb.address.toLowerCase().includes(data.toLowerCase())) {
+                        return eb;
+                    }
+                    else if (eb.email.toLowerCase().includes(data.toLowerCase())) {
+                        return eb;
+                    }
+                    else if (eb.mobile.toLowerCase().includes(data.toLowerCase())) {
+                        return eb;
+                    }
+                });
+            } else {
+                state.value = ary;
+            }
         }
     }
 })
